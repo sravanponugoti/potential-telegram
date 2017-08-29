@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+     <style>
+        .header{
+            border:2px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+
+    </div>
+</body>
+
+<script type="text/jsx">   
+
+    var WordComponent = React.createClass({
+    
+        getInitialState:function(){
+             return{
+                    textData : this.props.InitialText
+            }
+
+    },
+    textChangeHandler:function(e){
+        this.setState({textData:e.target.value});
+    },
+
+
+    componentWillMount:function(){
+        console.log('componentWillMount called !');
+    },
+     componentDidMount:function(){
+        console.log('componentDidMount called !');
+    },
+
+    shouldComponentUpdate:function(){
+     console.log('shouldComponentUpdate called !');
+
+     //console.log(arguments[0].InitialText + " changed to " + arguments[1].textData);
+
+    console.log(arguments);
+
+    if(this.state.textData.length > 10){
+        return false;
+    }
+
+    return true;
+    },
+
+    componentWillUpdate:function(){
+     console.log('componentWillUpdate called !');        
+    },
+
+      componentDidUpdate:function(){
+     console.log('componentDidUpdate called !');        
+    },
+        render:function(){
+        console.log('render called !');                
+        return (
+                        <div>
+                            <input type="text" className="form-control"
+                                   onChange={this.textChangeHandler}
+                                   value={this.state.textData} />
+                            {this.state.textData}
+                        </div>
+    
+                    )
+
+    }
+    });
+
+    ReactDOM.render(<WordComponent InitialText="Hello" />, document.getElementById('content'));
+
+</script>
+</html>
